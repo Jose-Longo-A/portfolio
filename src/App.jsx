@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import emailjs from '@emailjs/browser'
+import { translations } from './translations'
 import './App.css'
 
-
 // Documents
-import cvPdf from './assets/CV.pdf?url'
+import cvPdfPT from './assets/CV_PTBR.pdf?url'
+import cvPdfEN from './assets/CV_EN.pdf?url'
 
 // ── Data ──────────────────────────────────────────────────────────────────
 
@@ -12,9 +13,11 @@ const projects = [
   {
     title: 'Lets Fit',
     subtitle: 'Plataforma Web',
+    subtitleEn: 'Web Platform',
     img: '/images/letsfit.png',
     tags: ['HTML', 'CSS', 'JavaScript'],
     description: 'Meu primeiro projeto web desenvolvido com HTML e CSS, criado como uma plataforma fitness para criação, busca e compartilhamento de treinos personalizados. O projeto reúne modalidades como musculação, calistenia e alongamento, com foco em acessibilidade, interface responsiva e uma experiência simples para usuários que treinam em casa ou na academia.',
+    descriptionEn: 'My first web project built with HTML and CSS, created as a fitness platform for creating, searching, and sharing personalized workout routines. The project covers modalities like weightlifting, calisthenics, and stretching, with a focus on accessibility, a responsive interface, and a simple experience for users who train at home or at the gym.',
     link: null,
     github: 'https://github.com/Jose-Longo-A/inter-2sem-2024-treinos',
     linkedin: 'https://www.linkedin.com/posts/jos%C3%A9-longo_hoje-foi-o-dia-no-qual-eu-e-meu-grupo-apresentamos-activity-7275178962962550785-xtlY?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEtYAZsB-3Ac80rK1vWv7eqlcpPodgjsdJw',
@@ -22,9 +25,11 @@ const projects = [
   {
     title: 'Toilet View',
     subtitle: 'Sistema Web IoT',
+    subtitleEn: 'IoT Web System',
     img: '/images/toiletview.png',
     tags: ['Python', 'Flask', 'MySQL', 'HTML', 'CSS', 'JavaScript', 'Chart.js'],
     description: 'Sistema web IoT para monitoramento inteligente de banheiros, desenvolvido em parceria com a empresa Absolut Technologies. A solução permite acompanhar em tempo real a ocupação de cabines e a qualidade do ar por meio de sensores, exibindo dados em dashboards para melhorar a experiência dos usuários e otimizar a rotina de limpeza em ambientes públicos ou corporativos.',
+    descriptionEn: 'An IoT web system for smart bathroom monitoring, developed in partnership with Absolut Technologies. The solution enables real-time tracking of cabin occupancy and air quality through sensors, displaying data on dashboards to improve the user experience and optimize the cleaning routine in public or corporate environments.',
     link: null,
     github: 'https://github.com/Jose-Longo-A/inter-3sem-2025-toilet-view',
     linkedin: 'https://www.linkedin.com/posts/jos%C3%A9-longo_muito-feliz-em-compartilhar-a-apresenta%C3%A7%C3%A3o-activity-7338716812508864512-dG5Y?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEtYAZsB-3Ac80rK1vWv7eqlcpPodgjsdJw',
@@ -32,9 +37,12 @@ const projects = [
   {
     title: 'Review Center',
     subtitle: 'Dashboard analítico WEB SCRAPING',
+    subtitleEn: 'Analytical Dashboard WEB SCRAPING',
     img: '/images/reviewcenter.png',
     tags: ['Web Scraping', 'Banco de Dados Relacional', 'API', 'Front-end Web'],
+    tagsEn: ['Web Scraping', 'Relational Database', 'API', 'Front-end Web'],
     description: 'Sistema de relatórios automatizados com atualização diária, drill-down por região e categoria, e exportação programada para stakeholders. Eliminou relatórios manuais em Excel da equipe e acelerou a tomada de decisão.',
+    descriptionEn: 'Automated reporting system with daily updates, drill-down by region and category, and scheduled exports for stakeholders. It eliminated manual Excel reports for the team and accelerated decision-making.',
     link: null,
     github: 'https://github.com/tech-espm/inter-4sem-2025-review-center',
     linkedin: 'https://www.linkedin.com/posts/jos%C3%A9-longo_hoje-foi-um-grande-dia-apresentamos-o-nosso-activity-7407569995578261504-06sD?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEtYAZsB-3Ac80rK1vWv7eqlcpPodgjsdJw',
@@ -42,9 +50,11 @@ const projects = [
   {
     title: 'Machine Learning',
     subtitle: 'Repositório técnico',
+    subtitleEn: 'Technical Repository',
     img: '/images/machinelearning.png',
     tags: ['Python', 'Pandas', 'NumPy', 'Scikit-learn', 'Matplotlib', 'GitHub Pages'],
     description: 'Repositório técnico desenvolvido para documentar estudos e entregas da disciplina de Machine Learning. O projeto reúne experimentos com modelos como Árvore de Decisão, KNN, K-Means, Random Forest e SVM, incluindo exploração de dados, pré-processamento, treinamento, avaliação de métricas e visualizações. O conteúdo foi organizado em um site interativo com MkDocs Material e publicado via GitHub Pages.',
+    descriptionEn: 'A technical repository developed to document studies and deliverables from the Machine Learning course. The project includes experiments with models such as Decision Tree, KNN, K-Means, Random Forest, and SVM, covering data exploration, preprocessing, training, metric evaluation, and visualizations. The content was organized into an interactive site using MkDocs Material and published via GitHub Pages.',
     link: 'https://jose-longo-a.github.io/Machine-Learning/',
     github: 'https://github.com/Jose-Longo-A/Machine-Learning',
     linkedin: null,
@@ -52,9 +62,11 @@ const projects = [
   {
     title: 'Zincoligas',
     subtitle: 'AUTOMAÇÃO OCR',
+    subtitleEn: 'OCR AUTOMATION',
     img: '/images/zincoligasocr.png',
     tags: ['Python', 'Streamlit', 'Tesseract OCR', 'pytesseract', 'pdf2image', 'Poppler', 'Pillow', 'Pandas', 'OpenPyXL', 'Regex', 'Excel'],
     description: 'Ferramenta interna desenvolvida em Python para automatizar a extração de dados de pedidos de compra em PDF. A aplicação utiliza OCR para capturar informações de documentos escaneados, organiza os dados em uma interface de revisão e salva automaticamente as informações estruturadas em planilhas Excel, reduzindo retrabalho manual e aumentando a padronização dos registros.',
+    descriptionEn: 'An internal tool built in Python to automate the extraction of data from purchase order PDFs. The application uses OCR to capture information from scanned documents, organizes the data in a review interface, and automatically saves the structured information into Excel spreadsheets — reducing manual rework and increasing record standardization.',
     link: null,
     github: null,
     linkedin: null,
@@ -82,6 +94,7 @@ const trajectory = [
     location: 'Itaquaquecetuba - SP',
     period: '2023 — 2024',
     role: 'Assistente Administrativo',
+    roleEn: 'Administrative Assistant',
     current: false,
   },
 ]
@@ -94,7 +107,9 @@ const tools = [
       </svg>
     ),
     title: 'Análise de Dados',
+    titleEn: 'Data Analysis',
     description: 'Utilizo Python, SQL e R para extrair, limpar e analisar dados — desde exploração inicial até modelos de Machine Learning. Tenho experiência prática em projetos acadêmicos com Scikit-learn e Pandas, e no ambiente corporativo da Motorola Solutions.',
+    descriptionEn: 'I use Python, SQL, and R to extract, clean, and analyze data — from initial exploration to Machine Learning models. I have hands-on experience in academic projects using Scikit-learn and Pandas, and in the corporate environment at Motorola Solutions.',
     tags: ['Python', 'SQL', 'R', 'Pandas', 'NumPy', 'Scikit-learn', 'Excel'],
   },
   {
@@ -105,7 +120,9 @@ const tools = [
       </svg>
     ),
     title: 'Automação de Processos',
+    titleEn: 'Process Automation',
     description: 'Desenvolvo scripts e ferramentas que eliminam trabalho manual repetitivo. Criei uma solução OCR em Python que automatiza extração de dados de PDFs para Excel, e na Motorola mantenho scripts em Google Apps Script para o ecossistema interno de aprovações.',
+    descriptionEn: 'I develop scripts and tools that eliminate repetitive manual work. I built an OCR solution in Python that automates data extraction from PDFs to Excel, and at Motorola I maintain Google Apps Script scripts for the internal approvals ecosystem.',
     tags: ['Python', 'Google Apps Script', 'Streamlit', 'Tesseract OCR', 'Pandas', 'Regex'],
   },
   {
@@ -115,7 +132,9 @@ const tools = [
       </svg>
     ),
     title: 'Visualização & BI',
+    titleEn: 'Visualization & BI',
     description: 'Construo dashboards que traduzem grandes volumes de dados em decisões claras. Na Motorola, integro múltiplas fontes — Salesforce, SAP, Snowflake — em painéis Tableau para apoiar análises estratégicas de precificação e vendas.',
+    descriptionEn: 'I build dashboards that translate large volumes of data into clear decisions. At Motorola, I integrate multiple sources — Salesforce, SAP, Snowflake — into Tableau dashboards to support strategic pricing and sales analyses.',
     tags: ['Tableau', 'Power BI', 'Excel', 'Chart.js', 'SQL', 'Salesforce'],
   },
   {
@@ -125,7 +144,9 @@ const tools = [
       </svg>
     ),
     title: 'Desenvolvimento Web',
+    titleEn: 'Web Development',
     description: 'Construo interfaces e sistemas web funcionais, desde plataformas front-end até aplicações com backend e banco de dados. Trabalhei com Flask e MySQL em sistemas IoT reais, e com HTML, CSS e JavaScript em múltiplos projetos acadêmicos.',
+    descriptionEn: 'I build functional web interfaces and systems, from front-end platforms to applications with a backend and database. I worked with Flask and MySQL in real IoT systems, and with HTML, CSS, and JavaScript across multiple academic projects.',
     tags: ['HTML', 'CSS', 'JavaScript', 'React', 'Flask', 'MySQL', 'Chart.js'],
   },
   {
@@ -135,16 +156,19 @@ const tools = [
       </svg>
     ),
     title: 'Estratégia & Performance',
+    titleEn: 'Strategy & Performance',
     description: 'Aplico raciocínio analítico e foco em métricas tanto no ambiente corporativo quanto competitivo. No Deals Desk da Motorola analiso cotações e estruturo exceções de preço; no e-sports analisei partidas para identificar pontos de melhoria coletivos.',
+    descriptionEn: 'I apply analytical reasoning and a metrics-driven focus both in corporate and competitive environments. At Motorola\'s Deals Desk, I analyze quotes and structure pricing exceptions; in e-sports, I analyzed matches to identify areas for team improvement.',
     tags: ['Scrum', 'Jira', 'Salesforce', 'KPIs', 'Excel', 'Análise Competitiva'],
   },
 ]
 
 // ── Project Modal ─────────────────────────────────────────────────────────
 
-function ProjectModal({ project, index, onClose }) {
+function ProjectModal({ project, index, onClose, lang }) {
   const [closing, setClosing] = useState(false)
   const closingRef = useRef(false)
+  const tr = translations[lang]
 
   const handleClose = () => {
     if (closingRef.current) return
@@ -164,6 +188,9 @@ function ProjectModal({ project, index, onClose }) {
   }, [])
 
   const num = String(index + 1).padStart(2, '0')
+  const subtitle = lang === 'en' && project.subtitleEn ? project.subtitleEn : project.subtitle
+  const description = lang === 'en' && project.descriptionEn ? project.descriptionEn : project.description
+  const tags = lang === 'en' && project.tagsEn ? project.tagsEn : project.tags
 
   return (
     <div className={`modal-overlay${closing ? ' closing' : ''}`} onClick={handleClose}>
@@ -175,15 +202,15 @@ function ProjectModal({ project, index, onClose }) {
           {project.wip && (
             <div className="modal-img-wip-overlay" aria-hidden="true">
               <div className="modal-wip-img-labels">
-                <span className="modal-wip-img-label">Em</span>
-                <span className="modal-wip-img-label">Desenvolvimento</span>
+                <span className="modal-wip-img-label">{tr.projects.wipLine1}</span>
+                <span className="modal-wip-img-label">{tr.projects.wipLine2}</span>
               </div>
             </div>
           )}
           <div className="modal-img-gradient" />
           <div className="modal-img-footer">
             <span className="modal-img-num">{num}</span>
-            <span className="modal-img-category">{project.subtitle}</span>
+            <span className="modal-img-category">{subtitle}</span>
           </div>
         </div>
 
@@ -199,18 +226,18 @@ function ProjectModal({ project, index, onClose }) {
 
           <div className="modal-eyebrow">
             <span className="modal-eyebrow-line" />
-            PROJETO
+            {tr.projects.modalLabel}
           </div>
 
           <h2 className="modal-title">{project.title}</h2>
 
           <div className="modal-tags">
-            {project.tags.map((tag) => (
+            {tags.map((tag) => (
               <span key={tag} className="modal-tag">{tag}</span>
             ))}
           </div>
 
-          <p className="modal-desc">{project.description}</p>
+          <p className="modal-desc">{description}</p>
 
           <div className="modal-divider" />
 
@@ -218,12 +245,12 @@ function ProjectModal({ project, index, onClose }) {
             {project.wip && !project.link && !project.github && !project.linkedin && (
               <div className="modal-wip-badge">
                 <span className="modal-wip-dot" />
-                Em desenvolvimento
+                {tr.projects.wip}
               </div>
             )}
             {project.link && (
               <a href={project.link} target="_blank" rel="noreferrer" className="modal-btn modal-btn-primary">
-                Ver projeto online →
+                {tr.projects.viewOnline}
               </a>
             )}
             {project.github && (
@@ -252,16 +279,18 @@ function ProjectModal({ project, index, onClose }) {
 
 // ── Subcomponents ─────────────────────────────────────────────────────────
 
-function SectionLabel({ pt, en, className = '' }) {
+function SectionLabel({ pt, en, lang = 'pt', className = '' }) {
+  const primary = lang === 'pt' ? pt : en
+  const secondary = lang === 'pt' ? en : pt
   return (
     <div className={`section-label${className ? ' ' + className : ''}`}>
-      <span><span className="label-dash" />{pt}</span>
-      <span>[ {en} ]</span>
+      <span><span className="label-dash" />{primary}</span>
+      <span>[ {secondary} ]</span>
     </div>
   )
 }
 
-function Accordion({ items }) {
+function Accordion({ items, lang }) {
   const [open, setOpen] = useState(0)
   return (
     <div className="accordion reveal reveal-delay-2">
@@ -269,14 +298,18 @@ function Accordion({ items }) {
         <div key={i} className={`acc-item ${open === i ? 'open' : ''}`}>
           <button className="acc-header" onClick={() => setOpen(open === i ? -1 : i)}>
             <span className="acc-topic-icon">{item.icon}</span>
-            <span className="acc-question">{item.title}</span>
+            <span className="acc-question">
+              {lang === 'en' && item.titleEn ? item.titleEn : item.title}
+            </span>
             <span className="acc-toggle">
               {open === i ? <span>&lt;</span> : <span>&lt;/&gt;</span>}
             </span>
           </button>
           <div className="acc-content">
             <div className="acc-inner">
-              <p className="acc-answer">{item.description}</p>
+              <p className="acc-answer">
+                {lang === 'en' && item.descriptionEn ? item.descriptionEn : item.description}
+              </p>
               <div className="acc-tags">
                 {item.tags.map((tag) => (
                   <span key={tag} className="acc-tag">{tag}</span>
@@ -291,12 +324,50 @@ function Accordion({ items }) {
   )
 }
 
+// ── Lang Toggle ───────────────────────────────────────────────────────────
+
+function LangToggle({ lang, setLang, mobile = false }) {
+  return (
+    <div
+      className={`lang-toggle${mobile ? ' lang-toggle--mobile' : ''}`}
+      role="group"
+      aria-label="Language"
+    >
+      <button
+        className={`lang-btn${lang === 'pt' ? ' lang-btn--active' : ''}`}
+        onClick={() => setLang('pt')}
+        aria-pressed={lang === 'pt'}
+      >
+        PT
+      </button>
+      <span className="lang-sep" aria-hidden="true">·</span>
+      <button
+        className={`lang-btn${lang === 'en' ? ' lang-btn--active' : ''}`}
+        onClick={() => setLang('en')}
+        aria-pressed={lang === 'en'}
+      >
+        EN
+      </button>
+    </div>
+  )
+}
+
 // ── App ───────────────────────────────────────────────────────────────────
 
 export default function App() {
   const [form, setForm] = useState({ nome: '', email: '', mensagem: '' })
   const [formStatus, setFormStatus] = useState('idle') // idle | sending | sent | error
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value })
+
+  const [lang, setLangState] = useState(() => localStorage.getItem('lang') || 'pt')
+  const tr = translations[lang]
+
+  const setLang = (l) => {
+    setLangState(l)
+    localStorage.setItem('lang', l)
+  }
+
+  const cvPdf = lang === 'en' ? cvPdfEN : cvPdfPT
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -348,7 +419,7 @@ export default function App() {
     let currentX = 0
     let rafId = null
 
-    const LERP = 0.038 // fator de interpolação — menor = mais atraso visível
+    const LERP = 0.038
 
     const getOverflow = () => Math.max(track.scrollWidth - window.innerWidth, 0)
 
@@ -373,7 +444,7 @@ export default function App() {
       }
     }
 
-    const DEAD_ZONE = 0.18 // primeiros 18% do scroll: cards ficam parados
+    const DEAD_ZONE = 0.18
 
     const onScroll = () => {
       const outerTop = outer.getBoundingClientRect().top + window.scrollY
@@ -388,7 +459,6 @@ export default function App() {
       if (!rafId) rafId = requestAnimationFrame(tick)
     }
 
-    // Run recalc immediately, then again after paint + after images load
     recalc()
     requestAnimationFrame(recalc)
     const imgs = track.querySelectorAll('img')
@@ -416,19 +486,15 @@ export default function App() {
     const n = entries.length
 
     const LERP = 0.07
-    const STEP = 420                        // px de scroll por entrada
-    const SLIDE = window.innerHeight * 0.58  // entradas 1+ começam aqui abaixo
+    const STEP = 420
+    const SLIDE = window.innerHeight * 0.58
 
-    // entry 0 fica parada, entradas 1+ precisam de (n-1) steps
     outer.style.height = `calc(100vh + ${(n - 1) * STEP + 240}px)`
 
-    // apenas entradas 1+ são animadas pelo JS
     const currentY = entries.map(() => SLIDE)
     const targetY = entries.map(() => SLIDE)
     let rafId = null
 
-    // entry 0: sem inline style — CSS controla via .in-view
-    // entries 1+: começam abaixo da tela
     entries.forEach((entry, i) => {
       if (i === 0) return
       entry.style.willChange = 'transform, opacity'
@@ -439,7 +505,7 @@ export default function App() {
     const tick = () => {
       let running = false
       entries.forEach((entry, i) => {
-        if (i === 0) return          // entry 0 fica no lugar, CSS trata opacity
+        if (i === 0) return
         const diff = targetY[i] - currentY[i]
         if (Math.abs(diff) > 0.15) {
           currentY[i] += diff * LERP
@@ -461,7 +527,6 @@ export default function App() {
         section.classList.add('in-view')
       }
 
-      // threshold deslocado: entry i (i>0) começa no scroll de (i-1)*STEP
       entries.forEach((_, i) => {
         if (i === 0) return
         const start = (i - 1) * STEP
@@ -507,18 +572,19 @@ export default function App() {
       <nav className={`nav${navHidden && !menuOpen ? ' nav--hidden' : ''}${atTop && !menuOpen ? ' nav--transparent' : ''}`}>
         <a href="#hero" className="nav-brand" onClick={() => setMenuOpen(false)}>J.L</a>
         <div className="nav-links">
-          <a href="#sobre" className="nav-link">Sobre</a>
-          <a href="#projetos" className="nav-link">Projetos</a>
-          <a href="#trajetoria" className="nav-link">Trajetória</a>
-          <a href="#ferramentas" className="nav-link">Ferramentas</a>
+          <a href="#sobre" className="nav-link">{tr.nav.sobre}</a>
+          <a href="#projetos" className="nav-link">{tr.nav.projetos}</a>
+          <a href="#trajetoria" className="nav-link">{tr.nav.trajetoria}</a>
+          <a href="#ferramentas" className="nav-link">{tr.nav.ferramentas}</a>
           <a href={cvPdf} target="_blank" rel="noreferrer" className="nav-link nav-link--cv">CV ↗</a>
         </div>
         <div className="nav-end">
-          <a href="#contato" className="nav-cta">Contato →</a>
+          <LangToggle lang={lang} setLang={setLang} />
+          <a href="#contato" className="nav-cta">{tr.nav.contato}</a>
           <button
             className={`nav-hamburger${menuOpen ? ' open' : ''}`}
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+            aria-label={menuOpen ? tr.mobile.fecharMenu : tr.mobile.abrirMenu}
           >
             <span /><span /><span />
           </button>
@@ -529,7 +595,7 @@ export default function App() {
       <div className={`mobile-menu${menuOpen ? ' mobile-menu--open' : ''}`} aria-hidden={!menuOpen}>
         <div className="mobile-menu-header">
           <span className="mobile-menu-eyebrow">[ Menu ]</span>
-          <button className="mobile-menu-close" onClick={() => setMenuOpen(false)} aria-label="Fechar menu">
+          <button className="mobile-menu-close" onClick={() => setMenuOpen(false)} aria-label={tr.mobile.fecharMenu}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
@@ -538,22 +604,23 @@ export default function App() {
         </div>
         <nav className="mobile-menu-links">
           {[
-            { href: '#sobre', label: 'Sobre' },
-            { href: '#projetos', label: 'Projetos' },
-            { href: '#trajetoria', label: 'Trajetória' },
-            { href: '#ferramentas', label: 'Ferramentas' },
-            { href: '#contato', label: 'Contato' },
+            { href: '#sobre', label: tr.nav.sobre },
+            { href: '#projetos', label: tr.nav.projetos },
+            { href: '#trajetoria', label: tr.nav.trajetoria },
+            { href: '#ferramentas', label: tr.nav.ferramentas },
+            { href: '#contato', label: lang === 'pt' ? 'Contato' : 'Contact' },
           ].map(({ href, label }) => (
             <a key={href} href={href} className="mobile-menu-link" onClick={() => setMenuOpen(false)}>
               {label}
             </a>
           ))}
           <a href={cvPdf} target="_blank" rel="noreferrer" className="mobile-menu-link mobile-menu-link--cv" onClick={() => setMenuOpen(false)}>
-            Currículo ↗
+            {tr.nav.curriculo}
           </a>
         </nav>
         <div className="mobile-menu-footer">
           <span>[ José Longo Neto ]</span>
+          <LangToggle lang={lang} setLang={setLang} mobile />
           <span>© 2026</span>
         </div>
       </div>
@@ -568,15 +635,15 @@ export default function App() {
               <span className="hero-name-bold">Longo</span>
             </h1>
             <div className="hero-sub">
-              <span className="hero-role">Dados · Automação · Estratégia</span>
+              <span className="hero-role">{tr.hero.role}</span>
               <p className="hero-bio">
-                Transformo dados e sistemas em soluções<br />
-                claras, funcionais e bem construídas.
+                {tr.hero.bioLine1}<br />
+                {tr.hero.bioLine2}
               </p>
             </div>
           </div>
         </div>
-        <a href="#sobre" className="hero-arrow" aria-label="Scroll para baixo">
+        <a href="#sobre" className="hero-arrow" aria-label={tr.hero.scrollLabel}>
           <svg className="hero-arrow-chevron" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="6 9 12 15 18 9" />
           </svg>
@@ -586,64 +653,51 @@ export default function App() {
         </a>
       </section>
 
-      {/* ── 2. Quem sou eu ── */}
+      {/* ── 2. Sobre ── */}
       <section className="about" id="sobre">
-        <SectionLabel pt="SOBRE" en="About" className="reveal" />
+        <SectionLabel pt="SOBRE" en="About" lang={lang} className="reveal" />
         <div className="about-body">
           <div className="about-left">
             <h2 className="about-title reveal">
-              Quem <em>sou eu</em>
+              {tr.about.titleNormal} <em>{tr.about.titleItalic}</em>
             </h2>
             <div className="about-info-list reveal reveal-delay-1">
               <div className="about-info-item">
-                <span className="info-label">LOCALIZAÇÃO</span>
-                <span className="info-value">São Paulo, Brasil</span>
+                <span className="info-label">{tr.about.locationLabel}</span>
+                <span className="info-value">{tr.about.locationValue}</span>
               </div>
               <div className="about-info-item">
-                <span className="info-label">FORMAÇÃO</span>
-                <span className="info-value">ESPM — Ciência de Dados e Negócios</span>
+                <span className="info-label">{tr.about.educationLabel}</span>
+                <span className="info-value">{tr.about.educationValue}</span>
               </div>
               <div className="about-info-item">
-                <span className="info-label">ATUAÇÃO ATUAL</span>
-                <span className="info-value">Deals Desk Intern @ Motorola Solutions</span>
+                <span className="info-label">{tr.about.roleLabel}</span>
+                <span className="info-value">{tr.about.roleValue}</span>
               </div>
             </div>
             <a href={cvPdf} target="_blank" rel="noreferrer" className="about-cv-btn reveal reveal-delay-2">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
               </svg>
-              Ver Currículo
+              {tr.about.cvBtn}
             </a>
           </div>
           <div className="about-right">
-            <p className="about-bio reveal">
-              Sou José Longo, estudante de Ciência de Dados e Negócios, interessado em
-              transformar ideias, dados e sistemas em soluções claras, funcionais e bem
-              construídas.
-            </p>
-            <p className="about-bio reveal reveal-delay-1">
-              Tenho experiência em projetos acadêmicos e em ambiente corporativo,
-              atuando com análise de dados, integração de sistemas e construção de
-              dashboards. Atualmente, no Deals Desk da Motorola Solutions, trabalho com
-              lógica de negócio, automação e apoio a decisões estratégicas.
-            </p>
-            <p className="about-bio reveal reveal-delay-2">
-              Gosto de explorar a interseção entre tecnologia, design e resolução de
-              problemas, buscando sempre criar soluções que sejam não apenas
-              eficientes, mas também intuitivas e bem pensadas.
-            </p>
+            <p className="about-bio reveal">{tr.about.bio1}</p>
+            <p className="about-bio reveal reveal-delay-1">{tr.about.bio2}</p>
+            <p className="about-bio reveal reveal-delay-2">{tr.about.bio3}</p>
           </div>
         </div>
       </section>
 
-      {/* ── 3. Meus Projetos ── */}
+      {/* ── 3. Projetos ── */}
       <div className="projects-scroll-outer" id="projetos" ref={projectsOuterRef}>
         <section className="projects-sticky">
-          <SectionLabel pt="PROJETOS" en="Projects" className="reveal" />
+          <SectionLabel pt="PROJETOS" en="Projects" lang={lang} className="reveal" />
           <h2 className="projects-title reveal">
-            Meus <em>projetos</em>
+            {tr.projects.titleNormal} <em>{tr.projects.titleItalic}</em>
           </h2>
-          <span className="projects-count reveal reveal-delay-1">[{projects.length} PROJETOS EM DESTAQUE]</span>
+          <span className="projects-count reveal reveal-delay-1">{tr.projects.count(projects.length)}</span>
           <div className="projects-track" ref={projectsTrackRef}>
             {projects.map((p, i) => (
               <div className={`project-card${p.wip ? ' project-card--wip' : ''}`} key={i} onClick={() => setSelectedIdx(i)}>
@@ -655,17 +709,19 @@ export default function App() {
                     </>
                   ) : null}
                   {p.wip && (
-                    <div className="wip-overlay" aria-label="Em desenvolvimento">
+                    <div className="wip-overlay" aria-label={tr.projects.wip}>
                       <div className="wip-overlay-labels">
-                        <span className="wip-label">Em</span>
-                        <span className="wip-label">Desenvolvimento</span>
+                        <span className="wip-label">{tr.projects.wipLine1}</span>
+                        <span className="wip-label">{tr.projects.wipLine2}</span>
                       </div>
                     </div>
                   )}
                 </div>
                 <div className="project-meta">
                   <span className="project-name">{p.title}</span>
-                  <span className="project-sub">{p.subtitle}</span>
+                  <span className="project-sub">
+                    {lang === 'en' && p.subtitleEn ? p.subtitleEn : p.subtitle}
+                  </span>
                 </div>
               </div>
             ))}
@@ -677,14 +733,14 @@ export default function App() {
       {/* ── 4. Trajetória ── */}
       <div className="traj-outer" id="trajetoria" ref={trajOuterRef}>
         <section className="traj-section">
-          <SectionLabel pt="TRAJETÓRIA" en="Trajectory" />
+          <SectionLabel pt="TRAJETÓRIA" en="Trajectory" lang={lang} />
           <div className="traj-body">
             <div className="traj-left">
               <h2 className="traj-title">
-                <span className="traj-title-serif">O caminho</span>
-                <span className="traj-title-bold">até hoje</span>
+                <span className="traj-title-serif">{tr.trajectory.titleSerif}</span>
+                <span className="traj-title-bold">{tr.trajectory.titleBold}</span>
               </h2>
-              <p>A história até aqui — de onde vem cada projeto e cada decisão.</p>
+              <p>{tr.trajectory.desc}</p>
             </div>
             <div className="traj-right">
               {trajectory.map((t, i) => (
@@ -697,7 +753,7 @@ export default function App() {
                     <span className="traj-period">{t.period}</span>
                     <span className="traj-role">
                       {t.current && <span className="traj-dot" />}
-                      {t.role}
+                      {lang === 'en' && t.roleEn ? t.roleEn : t.role}
                     </span>
                   </div>
                 </div>
@@ -709,26 +765,26 @@ export default function App() {
 
       {/* ── 5. Ferramentas ── */}
       <section className="tools-section" id="ferramentas">
-        <SectionLabel pt="Ferramentas" en="Tools" className="reveal" />
+        <SectionLabel pt="Ferramentas" en="Tools" lang={lang} className="reveal" />
         <h2 className="tools-heading reveal reveal-delay-1">
-          Analiso dados,<br />
-          <em>construo soluções.</em>
+          {tr.tools.headingLine1}<br />
+          <em>{tr.tools.headingItalic}</em>
         </h2>
-        <Accordion items={tools} />
+        <Accordion items={tools} lang={lang} />
       </section>
 
       {/* ── 6. Contato ── */}
       <section className="contact" id="contato">
-        <SectionLabel pt="CONTATO" en="Contact" className="reveal" />
+        <SectionLabel pt="CONTATO" en="Contact" lang={lang} className="reveal" />
 
         <div className="contact-header">
           <h2 className="contact-title reveal">
-            Vamos <em>conversar.</em>
+            {tr.contact.titleNormal} <em>{tr.contact.titleItalic}</em>
           </h2>
           <p className="contact-desc reveal reveal-delay-1">
-            Estou aberto a oportunidades,<br />
-            colaborações e novos projetos.<br />
-            Fale comigo.
+            {tr.contact.descLine1}<br />
+            {tr.contact.descLine2}<br />
+            {tr.contact.descLine3}
           </p>
         </div>
 
@@ -736,16 +792,16 @@ export default function App() {
           {formStatus === 'sent' ? (
             <div className="form-success">
               <span className="form-success-icon">✓</span>
-              <p>Mensagem enviada! Responderei em breve.</p>
+              <p>{tr.contact.success}</p>
             </div>
           ) : (
             <form className="contact-form" onSubmit={handleSubmit}>
               <div className="form-row">
                 <div className="form-field">
-                  <label>Nome</label>
+                  <label>{tr.contact.nameLabel}</label>
                   <input
                     type="text"
-                    placeholder="Seu nome"
+                    placeholder={tr.contact.namePlaceholder}
                     value={form.nome}
                     onChange={set('nome')}
                     required
@@ -755,7 +811,7 @@ export default function App() {
                   <label>Email</label>
                   <input
                     type="email"
-                    placeholder="email@gmail.com"
+                    placeholder={tr.contact.emailPlaceholder}
                     value={form.email}
                     onChange={set('email')}
                     required
@@ -763,9 +819,9 @@ export default function App() {
                 </div>
               </div>
               <div className="form-field">
-                <label>Mensagem</label>
+                <label>{tr.contact.messageLabel}</label>
                 <textarea
-                  placeholder="Serviços, Trabalho, etc..."
+                  placeholder={tr.contact.messagePlaceholder}
                   rows={5}
                   value={form.mensagem}
                   onChange={set('mensagem')}
@@ -773,10 +829,10 @@ export default function App() {
                 />
               </div>
               {formStatus === 'error' && (
-                <p className="form-error">Algo deu errado. Tente novamente.</p>
+                <p className="form-error">{tr.contact.error}</p>
               )}
               <button type="submit" className="btn-submit" disabled={formStatus === 'sending'}>
-                {formStatus === 'sending' ? 'Enviando...' : 'Enviar'}
+                {formStatus === 'sending' ? tr.contact.sending : tr.contact.submitBtn}
               </button>
             </form>
           )}
@@ -793,7 +849,7 @@ export default function App() {
             <a href="mailto:joselongoneto@gmail.com" className="contact-card-value">
               joselongoneto@gmail.com
             </a>
-            <p className="contact-card-note">Respondendo em até 24h</p>
+            <p className="contact-card-note">{tr.contact.emailNote}</p>
           </div>
 
           <div className="contact-card reveal reveal-delay-1">
@@ -806,7 +862,7 @@ export default function App() {
             <a href="https://www.linkedin.com/in/jos%C3%A9-longo/" target="_blank" rel="noreferrer" className="contact-card-value">
               /josé-longo
             </a>
-            <p className="contact-card-note">Conecte-se comigo</p>
+            <p className="contact-card-note">{tr.contact.linkedinNote}</p>
           </div>
 
           <div className="contact-card reveal reveal-delay-2">
@@ -819,7 +875,7 @@ export default function App() {
             <a href="https://wa.me/5511992581927" target="_blank" rel="noreferrer" className="contact-card-value">
               +55 11 99258-1927
             </a>
-            <p className="contact-card-note">Disponível seg – sáb</p>
+            <p className="contact-card-note">{tr.contact.whatsappNote}</p>
           </div>
         </div>
 
@@ -827,7 +883,7 @@ export default function App() {
           <span>[ José Longo Neto ]</span>
           <button className="scroll-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <span className="scroll-arrow">↑</span>
-            <span>Topo</span>
+            <span>{tr.footer.top}</span>
           </button>
           <span className="footer-right">[ © 2026 ]</span>
         </footer>
@@ -838,10 +894,10 @@ export default function App() {
           project={projects[selectedIdx]}
           index={selectedIdx}
           onClose={() => setSelectedIdx(null)}
+          lang={lang}
         />
       )}
 
     </div>
   )
 }
-
