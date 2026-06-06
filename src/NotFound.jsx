@@ -63,6 +63,8 @@ export default function NotFound() {
   const [channel, setChannel] = useState(0)
   const [displayCh, setDisplayCh] = useState(0)
   const [switching, setSwitching] = useState(false)
+  const [powered, setPowered] = useState(true)
+  const [showOnAnim, setShowOnAnim] = useState(false)
   const canvasRef = useRef(null)
   const rafRef = useRef(null)
 
@@ -99,95 +101,89 @@ export default function NotFound() {
     setTimeout(() => { setChannel(idx); setSwitching(false) }, 400)
   }
 
+  const nextChannel = () => switchTo((channel + 1) % CHANNELS.length)
+
   const ch = CHANNELS[displayCh]
 
   return (
     <div className="nf-root">
       <div className="nf-grain" aria-hidden="true" />
-
       <a href="/" className="nf-brand">J.L</a>
 
       <main className="nf-main">
 
-        {/* ── TV ── */}
-        <div className="tv">
+        {/* TV with image */}
+        <div className="tv-wrapper">
+          <img src="/images/oldTV.png" alt="Televisão antiga" className="tv-img" />
 
-          {/* Antennas */}
-          <div className="tv-antennas">
-            <div className="tv-ant tv-ant--l" />
-            <div className="tv-ant tv-ant--r" />
-          </div>
+          {/* Screen overlay — sits over the white screen area of the image */}
+          <div
+            className={`tv-screen-overlay tv-screen--${ch.key}${switching ? ' is-switching' : ''}`}
+            style={{ '--ch-bg': ch.bg, '--ch-color': ch.color, '--ch-accent': ch.accent }}
+          >
+            {/* Static noise canvas */}
+            {displayCh === 0 && (
+              <canvas ref={canvasRef} className="tv-static" width="80" height="60" />
+            )}
 
-          {/* Body */}
-          <div className="tv-body">
-
-            {/* Screen */}
-            <div
-              className={`tv-screen tv-screen--${ch.key}${switching ? ' is-switching' : ''}`}
-              style={{ '--ch-bg': ch.bg, '--ch-color': ch.color, '--ch-accent': ch.accent }}
-            >
-              {/* Static noise canvas */}
-              {displayCh === 0 && (
-                <canvas ref={canvasRef} className="tv-static" width="80" height="60" />
+            {/* Content */}
+            <div className="tv-content">
+              {displayCh === 2 && (
+                <div className="ow-frame ow-frame--top"><span /><span /></div>
               )}
-
-              {/* Content */}
-              <div className="tv-content">
-
-                {/* Overwatch corner frames */}
-                {displayCh === 2 && (
-                  <div className="ow-frame ow-frame--top">
-                    <span /><span />
-                  </div>
-                )}
-
-                {/* Horizon tribal ornament */}
-                {displayCh === 4 && (
-                  <div className="hz-ornament">— ◈ —</div>
-                )}
-
-                <div className={`tv-404 tv-404--${ch.key}`}>404</div>
-                <p className={`tv-sub tv-sub--${ch.key}`}>{ch.subtitle[lang]}</p>
-
-                {displayCh === 2 && (
-                  <div className="ow-frame ow-frame--bottom">
-                    <span /><span />
-                  </div>
-                )}
-              </div>
-
-              {/* Channel label */}
-              <span className="tv-ch-label">CH {String(displayCh + 1).padStart(2, '0')}</span>
-
-              {/* Scanlines */}
-              <div className="tv-scanlines" aria-hidden="true" />
-
-              {/* Sweep transition */}
-              {switching && <div className="tv-sweep" aria-hidden="true" />}
+              {displayCh === 4 && (
+                <div className="hz-ornament">— ◈ —</div>
+              )}
+              <div className={`tv-404 tv-404--${ch.key}`}>404</div>
+              <p className={`tv-sub tv-sub--${ch.key}`}>{ch.subtitle[lang]}</p>
+              {displayCh === 2 && (
+                <div className="ow-frame ow-frame--bottom"><span /><span /></div>
+              )}
             </div>
 
-            {/* Controls row */}
-            <div className="tv-controls">
-              <div className="tv-speaker">
-                {[...Array(5)].map((_, i) => <div key={i} className="tv-speaker-dot" />)}
-              </div>
-              <div className="tv-btns">
-                {CHANNELS.map((c, i) => (
-                  <button
-                    key={c.id}
-                    className={`tv-btn${channel === i ? ' is-active' : ''}`}
-                    onClick={() => switchTo(i)}
-                    aria-label={`Canal ${i + 1}: ${c.name}`}
-                    title={c.name}
-                  />
-                ))}
-              </div>
-              <div className="tv-power">
-                <div className="tv-power-led" />
-              </div>
-            </div>
+            {/* Channel label */}
+            <span className="tv-ch-label">
+              CH {String(displayCh + 1).padStart(2, '0')} / {CHANNELS.length}
+            </span>
 
+            {/* Scanlines */}
+            <div className="tv-scanlines" aria-hidden="true" />
+
+            {/* Sweep transition */}
+            {switching && <div className="tv-sweep" aria-hidden="true" />}
+
+            {/* CRT power-off overlay — stays black while off AND during on-animation */}
+            {!powered && (
+              <div className="tv-off-overlay">
+                <div className="tv-off-beam" />
+              </div>
+            )}
+
+            {/* CRT power-on overlay */}
+            {showOnAnim && <div className="tv-on-beam" />}
           </div>
+          {/* Invisible knob button — easter egg */}
+          <button
+            className="tv-knob-btn"
+            onClick={nextChannel}
+            aria-label="Mudar canal"
+          />
+
+          {/* Power button — turns screen off/on */}
+          <button
+            className="tv-power-btn"
+            onClick={() => {
+              if (powered) {
+                setPowered(false)
+              } else {
+                setShowOnAnim(true)
+                setTimeout(() => setPowered(true), 440)
+                setTimeout(() => setShowOnAnim(false), 580)
+              }
+            }}
+            aria-label={powered ? 'Desligar TV' : 'Ligar TV'}
+          />
+
         </div>
 
         {/* Back link */}

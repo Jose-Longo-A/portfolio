@@ -15,7 +15,7 @@
   overflow: hidden;
 }
 
-/* ── Grain (duplicated from App.css to keep 404 self-contained) ── */
+/* ── Grain ── */
 
 .nf-grain {
   position: fixed;
@@ -33,17 +33,49 @@
 }
 
 @keyframes nf-grain-move {
-  0%   { transform: translate(0%, 0%); }
-  10%  { transform: translate(-5%, -10%); }
-  20%  { transform: translate(-15%, 5%); }
-  30%  { transform: translate(7%, -20%); }
-  40%  { transform: translate(-5%, 22%); }
-  50%  { transform: translate(-18%, 8%); }
-  60%  { transform: translate(12%, 2%); }
-  70%  { transform: translate(0%, 14%); }
-  80%  { transform: translate(4%, -15%); }
-  90%  { transform: translate(-10%, 8%); }
-  100% { transform: translate(0%, 0%); }
+  0% {
+    transform: translate(0%, 0%);
+  }
+
+  10% {
+    transform: translate(-5%, -10%);
+  }
+
+  20% {
+    transform: translate(-15%, 5%);
+  }
+
+  30% {
+    transform: translate(7%, -20%);
+  }
+
+  40% {
+    transform: translate(-5%, 22%);
+  }
+
+  50% {
+    transform: translate(-18%, 8%);
+  }
+
+  60% {
+    transform: translate(12%, 2%);
+  }
+
+  70% {
+    transform: translate(0%, 14%);
+  }
+
+  80% {
+    transform: translate(4%, -15%);
+  }
+
+  90% {
+    transform: translate(-10%, 8%);
+  }
+
+  100% {
+    transform: translate(0%, 0%);
+  }
 }
 
 /* ── Nav brand ── */
@@ -75,65 +107,37 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2.5rem;
+  gap: 1.2rem;
   z-index: 1;
 }
 
-/* ── TV Structure ── */
+/* ── TV Image + Screen Overlay ── */
 
-.tv {
+.tv-wrapper {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 540px;
+  /* 1.5x the original 360px */
 }
 
-.tv-antennas {
-  display: flex;
-  justify-content: space-between;
-  width: 160px;
-  margin-bottom: -6px;
-  position: relative;
-  z-index: 1;
-}
-
-.tv-ant {
-  width: 4px;
-  height: 58px;
-  background: linear-gradient(to top, #888, #ccc);
-  border-radius: 2px;
-  transform-origin: bottom center;
-}
-
-.tv-ant--l { transform: rotate(-20deg); }
-.tv-ant--r { transform: rotate(20deg); }
-
-.tv-body {
-  width: 360px;
-  background: linear-gradient(145deg, #d4d4d4 0%, #aaa 45%, #888 100%);
-  border-radius: 18px 18px 24px 24px;
-  padding: 18px 18px 22px;
-  box-shadow:
-    inset 0 3px 5px rgba(255, 255, 255, 0.35),
-    inset 0 -3px 5px rgba(0, 0, 0, 0.25),
-    inset 3px 0 5px rgba(255, 255, 255, 0.1),
-    inset -3px 0 5px rgba(0, 0, 0, 0.15),
-    0 28px 70px rgba(0, 0, 0, 0.9),
-    0 10px 24px rgba(0, 0, 0, 0.5);
-}
-
-/* ── Screen ── */
-
-.tv-screen {
-  position: relative;
+.tv-img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  display: block;
+  position: relative;
+  z-index: 2;
+}
+
+/* Screen overlay — sits BEHIND the TV image */
+.tv-screen-overlay {
+  position: absolute;
+  z-index: 1;
+  /* below the TV image */
+  left: 9%;
+  top: 8%;
+  width: 63%;
+  height: 82%;
   background: var(--ch-bg, #060606);
-  border-radius: 10px;
+  border-radius: 6px;
   overflow: hidden;
-  box-shadow:
-    inset 0 0 50px rgba(0, 0, 0, 0.95),
-    inset 0 0 0 2px rgba(0, 0, 0, 0.7);
   transition: background 0.12s ease;
 }
 
@@ -149,35 +153,33 @@
   z-index: 1;
 }
 
-/* Scanlines overlay */
+/* Scanlines */
 .tv-scanlines {
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.13) 2px,
-    rgba(0, 0, 0, 0.13) 4px
-  );
+  background: repeating-linear-gradient(0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.12) 2px,
+      rgba(0, 0, 0, 0.12) 4px);
   pointer-events: none;
   z-index: 8;
 }
 
-/* Channel number */
+/* Channel label */
 .tv-ch-label {
   position: absolute;
-  bottom: 7px;
-  right: 9px;
+  bottom: 6px;
+  right: 8px;
   font-family: 'Courier New', monospace;
-  font-size: 0.45rem;
-  color: rgba(255, 255, 255, 0.2);
+  font-size: 0.42rem;
+  color: rgba(255, 255, 255, 0.18);
   letter-spacing: 0.1em;
   z-index: 7;
   user-select: none;
 }
 
-/* Screen content wrapper */
+/* Content wrapper */
 .tv-content {
   position: absolute;
   inset: 0;
@@ -185,22 +187,41 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
   z-index: 4;
-  padding: 1rem;
+  padding: 0.8rem;
 }
 
-/* Hover distortion */
-.tv-screen:hover .tv-404 {
+/* Hover distortion on screen */
+.tv-screen-overlay:hover .tv-404 {
   animation: hover-flicker 0.25s steps(1) forwards;
 }
 
 @keyframes hover-flicker {
-  0%   { transform: translate(0); filter: none; }
-  25%  { transform: translate(-2px, 1px); filter: hue-rotate(30deg) brightness(1.2); }
-  50%  { transform: translate(2px, -1px); filter: hue-rotate(-30deg); }
-  75%  { transform: translate(-1px, 0); filter: brightness(1.1); }
-  100% { transform: translate(0); filter: none; }
+  0% {
+    transform: translate(0);
+    filter: none;
+  }
+
+  25% {
+    transform: translate(-2px, 1px);
+    filter: hue-rotate(30deg) brightness(1.2);
+  }
+
+  50% {
+    transform: translate(2px, -1px);
+    filter: hue-rotate(-30deg);
+  }
+
+  75% {
+    transform: translate(-1px);
+    filter: brightness(1.1);
+  }
+
+  100% {
+    transform: translate(0);
+    filter: none;
+  }
 }
 
 /* Channel-change sweep */
@@ -209,20 +230,23 @@
   left: 0;
   right: 0;
   height: 45%;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(255, 255, 255, 0.92) 35%,
-    rgba(255, 255, 255, 0.92) 65%,
-    transparent 100%
-  );
+  background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(255, 255, 255, 0.92) 35%,
+      rgba(255, 255, 255, 0.92) 65%,
+      transparent 100%);
   z-index: 20;
   animation: ch-sweep 0.4s cubic-bezier(0.4, 0, 0.6, 1) forwards;
 }
 
 @keyframes ch-sweep {
-  from { top: -45%; }
-  to   { top: 110%; }
+  from {
+    top: -45%;
+  }
+
+  to {
+    top: 110%;
+  }
 }
 
 /* ── Base 404 text ── */
@@ -238,7 +262,7 @@
 }
 
 .tv-sub {
-  font-size: 0.6rem;
+  font-size: 0.58rem;
   color: var(--ch-accent);
   text-align: center;
   letter-spacing: 0.08em;
@@ -246,7 +270,7 @@
   line-height: 1.6;
 }
 
-/* ── CH 0: Static / Default ── */
+/* ── CH 0: Static ── */
 
 .tv-404--static {
   animation: glitch-idle 5s steps(1) infinite;
@@ -254,22 +278,29 @@
 }
 
 @keyframes glitch-idle {
-  0%, 88%, 100% {
+
+  0%,
+  88%,
+  100% {
     text-shadow: 2px 0 #ff0040, -2px 0 #00ffff;
     transform: translate(0);
   }
+
   89% {
     text-shadow: -5px 0 #ff0040, 5px 0 #00ffff;
     transform: translate(-4px, 2px) skewX(-3deg);
   }
+
   90% {
     text-shadow: 5px 0 #ff0040, -5px 0 #00ffff;
     transform: translate(4px, -2px) skewX(2deg);
   }
+
   91% {
     text-shadow: -2px 0 #ff0040, 2px 0 #00ffff;
     transform: translate(-2px, 1px);
   }
+
   92% {
     text-shadow: 2px 0 #ff0040, -2px 0 #00ffff;
     transform: translate(0);
@@ -278,8 +309,7 @@
 
 .tv-sub--static {
   font-family: 'Courier New', monospace;
-  font-size: 0.58rem;
-  color: rgba(220, 220, 220, 0.45);
+  color: rgba(220, 220, 220, 0.4);
   text-transform: uppercase;
   letter-spacing: 0.15em;
 }
@@ -288,8 +318,8 @@
 
 .tv-screen--minecraft {
   background:
-    repeating-linear-gradient(0deg, rgba(0,0,0,0.25) 0px, rgba(0,0,0,0.25) 3px, transparent 3px, transparent 8px),
-    repeating-linear-gradient(90deg, rgba(0,0,0,0.25) 0px, rgba(0,0,0,0.25) 3px, transparent 3px, transparent 8px),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0px, rgba(0, 0, 0, 0.22) 3px, transparent 3px, transparent 8px),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.22) 0px, rgba(0, 0, 0, 0.22) 3px, transparent 3px, transparent 8px),
     #0a0f05;
 }
 
@@ -297,21 +327,14 @@
   font-family: 'Press Start 2P', monospace;
   font-size: 2.8rem;
   color: #5a8c3c;
-  text-shadow:
-    4px 4px 0 #1e3a10,
-    -2px 0 0 #3d6a28,
-    2px 0 0 #3d6a28,
-    0 3px 0 #1e3a10;
-  image-rendering: pixelated;
+  text-shadow: 4px 4px 0 #1e3a10, -2px 0 0 #3d6a28, 2px 0 0 #3d6a28, 0 3px 0 #1e3a10;
 }
 
 .tv-sub--minecraft {
   font-family: 'Press Start 2P', monospace;
-  font-size: 0.38rem;
+  font-size: 0.36rem;
   color: #8b6914;
-  letter-spacing: 0.04em;
-  text-align: center;
-  margin-top: 0.4rem;
+  margin-top: 0.3rem;
   line-height: 1.9;
 }
 
@@ -320,7 +343,7 @@
 .tv-404--overwatch {
   font-family: 'Poppins', sans-serif;
   font-weight: 900;
-  font-size: 5rem;
+  font-size: 4.5rem;
   color: #f99e1a;
   letter-spacing: 0.35em;
   text-indent: 0.35em;
@@ -329,7 +352,7 @@
 
 .tv-sub--overwatch {
   font-family: 'Poppins', sans-serif;
-  font-size: 0.52rem;
+  font-size: 0.48rem;
   font-weight: 700;
   letter-spacing: 0.28em;
   color: #4a9fc8;
@@ -345,17 +368,32 @@
 
 .ow-frame span {
   display: block;
-  width: 11px;
-  height: 11px;
-  border-color: rgba(249, 158, 26, 0.6);
+  width: 10px;
+  height: 10px;
+  border-color: rgba(249, 158, 26, 0.55);
   border-style: solid;
   border-width: 2px;
 }
 
-.ow-frame--top span:first-child { border-right: none; border-bottom: none; }
-.ow-frame--top span:last-child  { border-left: none;  border-bottom: none; }
-.ow-frame--bottom span:first-child { border-right: none; border-top: none; }
-.ow-frame--bottom span:last-child  { border-left: none;  border-top: none; }
+.ow-frame--top span:first-child {
+  border-right: none;
+  border-bottom: none;
+}
+
+.ow-frame--top span:last-child {
+  border-left: none;
+  border-bottom: none;
+}
+
+.ow-frame--bottom span:first-child {
+  border-right: none;
+  border-top: none;
+}
+
+.ow-frame--bottom span:last-child {
+  border-left: none;
+  border-top: none;
+}
 
 /* ── CH 3: Stardew Valley ── */
 
@@ -368,26 +406,20 @@
 
 .tv-404--stardew {
   font-family: 'Press Start 2P', monospace;
-  font-size: 2.5rem;
+  font-size: 2.4rem;
   color: #a8d88a;
-  text-shadow:
-    3px 3px 0 #3a6020,
-    -1px 0 0 #6ab85a,
-    0 2px 0 #3a6020;
-  image-rendering: pixelated;
+  text-shadow: 3px 3px 0 #3a6020, -1px 0 0 #6ab85a, 0 2px 0 #3a6020;
 }
 
 .tv-sub--stardew {
   font-family: 'Press Start 2P', monospace;
-  font-size: 0.35rem;
+  font-size: 0.33rem;
   color: #f4a0b4;
-  letter-spacing: 0.04em;
-  text-align: center;
-  margin-top: 0.5rem;
+  margin-top: 0.4rem;
   line-height: 2;
 }
 
-/* ── CH 4: Horizon Forbidden West ── */
+/* ── CH 4: Horizon ── */
 
 .tv-screen--horizon {
   background:
@@ -398,28 +430,25 @@
 
 .hz-ornament {
   font-family: 'Poppins', sans-serif;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.4em;
-  color: rgba(0, 180, 204, 0.55);
-  margin-bottom: 0.3rem;
+  color: rgba(0, 180, 204, 0.5);
+  margin-bottom: 0.2rem;
   text-indent: 0.4em;
 }
 
 .tv-404--horizon {
   font-family: 'Poppins', sans-serif;
   font-weight: 900;
-  font-size: 5rem;
+  font-size: 4.5rem;
   color: #00b4cc;
-  letter-spacing: 0.08em;
-  text-shadow:
-    0 0 30px rgba(0, 180, 204, 0.5),
-    0 0 70px rgba(0, 180, 204, 0.2);
+  text-shadow: 0 0 30px rgba(0, 180, 204, 0.5), 0 0 70px rgba(0, 180, 204, 0.2);
 }
 
 .tv-sub--horizon {
   font-family: 'Poppins', sans-serif;
-  font-size: 0.5rem;
+  font-size: 0.46rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   color: #ff6b2b;
@@ -439,105 +468,147 @@
   font-family: 'Playfair Display', Georgia, serif;
   font-style: italic;
   font-weight: 700;
-  font-size: 5.5rem;
+  font-size: 5rem;
   color: #8bacc8;
-  letter-spacing: -0.02em;
-  text-shadow:
-    0 0 40px rgba(139, 172, 200, 0.35),
-    0 0 90px rgba(139, 172, 200, 0.12);
+  text-shadow: 0 0 40px rgba(139, 172, 200, 0.35), 0 0 90px rgba(139, 172, 200, 0.12);
   animation: hollow-breathe 3.5s ease-in-out infinite;
 }
 
 @keyframes hollow-breathe {
-  0%, 100% { opacity: 1; text-shadow: 0 0 40px rgba(139,172,200,0.35), 0 0 90px rgba(139,172,200,0.12); }
-  50%       { opacity: 0.65; text-shadow: 0 0 60px rgba(139,172,200,0.5), 0 0 120px rgba(139,172,200,0.2); }
+
+  0%,
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 40px rgba(139, 172, 200, 0.35), 0 0 90px rgba(139, 172, 200, 0.12);
+  }
+
+  50% {
+    opacity: 0.65;
+    text-shadow: 0 0 60px rgba(139, 172, 200, 0.5), 0 0 120px rgba(139, 172, 200, 0.2);
+  }
 }
 
 .tv-sub--hollow {
   font-family: 'Playfair Display', Georgia, serif;
   font-style: italic;
-  font-size: 0.72rem;
-  color: rgba(139, 172, 200, 0.4);
-  letter-spacing: 0.06em;
+  font-size: 0.68rem;
+  color: rgba(139, 172, 200, 0.38);
 }
 
-/* ── TV Controls ── */
+/* ── Power button (easter egg) ── */
 
-.tv-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 11px 6px 2px;
-  gap: 8px;
-}
-
-.tv-speaker {
-  display: flex;
-  gap: 3px;
-  align-items: center;
-}
-
-.tv-speaker-dot {
-  width: 4px;
-  height: 4px;
+.tv-power-btn {
+  position: absolute;
+  z-index: 3;
+  left: 84%;
+  top: 72%;
+  width: 8%;
+  height: 10%;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.38);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.5);
-}
-
-.tv-btns {
-  display: flex;
-  gap: 7px;
-  align-items: center;
-}
-
-.tv-btn {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(0, 0, 0, 0.28);
-  background: linear-gradient(145deg, #b8b8b8, #888);
+  background: transparent;
+  border: none;
   cursor: pointer;
-  padding: 0;
-  box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.3),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.28),
-    0 1px 3px rgba(0, 0, 0, 0.4);
-  transition: background 0.15s ease, transform 0.12s ease, box-shadow 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.tv-btn:hover {
-  background: linear-gradient(145deg, #cccccc, #a0a0a0);
-  transform: scale(1.12);
+.tv-power-btn:hover {
+  background: radial-gradient(circle, rgba(255,200,0,0.08) 0%, transparent 70%);
 }
 
-.tv-btn.is-active {
-  background: linear-gradient(145deg, #888, #606060);
-  box-shadow:
-    inset 0 2px 4px rgba(0, 0, 0, 0.45),
-    inset 0 -1px 1px rgba(255, 255, 255, 0.08),
-    0 1px 2px rgba(0, 0, 0, 0.3);
-  transform: scale(0.93);
+/* CRT power-off effect */
+.tv-off-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  background: #000; /* stays black after animation ends */
 }
 
-.tv-power {
+.tv-off-beam {
+  position: absolute;
+  inset: 0;
+  background: white;
+  transform-origin: center center;
+  animation: crt-beam-off 0.5s ease-out forwards;
+}
+
+@keyframes crt-beam-off {
+  0%   { transform: scaleY(1)     scaleX(1);    opacity: 1; }
+  40%  { transform: scaleY(0.015) scaleX(1);    opacity: 1; }
+  70%  { transform: scaleY(0.015) scaleX(0.08); opacity: 0.8; }
+  100% { transform: scaleY(0.015) scaleX(0);    opacity: 0; }
+}
+
+/* CRT power-on beam (reverse) */
+.tv-on-beam {
+  position: absolute;
+  inset: 0;
+  z-index: 16;
+  background: white;
+  transform-origin: center center;
+  animation: crt-beam-on 0.55s ease-in forwards;
+}
+
+@keyframes crt-beam-on {
+  0%   { transform: scaleY(0.015) scaleX(0.01); opacity: 1; }
+  30%  { transform: scaleY(0.015) scaleX(0.08); opacity: 1; }
+  60%  { transform: scaleY(0.015) scaleX(1);    opacity: 1; }
+  80%  { transform: scaleY(1)     scaleX(1);    opacity: 1; }
+  100% { transform: scaleY(1)     scaleX(1);    opacity: 0; }
+}
+
+/* ── Invisible knob button (easter egg) ── */
+
+.tv-knob-btn {
+  position: absolute;
+  z-index: 3;
+  left: 76%;
+  top: 16%;
+  width: 8%;
+  height: 13%;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tv-knob-btn:hover {
+  background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+}
+
+/* ── Channel navigation ── */
+
+.tv-nav {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 1.2rem;
 }
 
-.tv-power-led {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #3a9a3a;
-  box-shadow: 0 0 5px rgba(80, 210, 80, 0.8), 0 0 10px rgba(80, 210, 80, 0.3);
-  animation: led-blink 2.2s ease-in-out infinite;
+.tv-nav-btn {
+  background: none;
+  border: 1px solid rgba(240, 234, 220, 0.15);
+  color: rgba(240, 234, 220, 0.4);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.75rem;
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  border-radius: 2px;
 }
 
-@keyframes led-blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.45; }
+.tv-nav-btn:hover {
+  border-color: rgba(240, 234, 220, 0.45);
+  color: rgba(240, 234, 220, 0.85);
+}
+
+.tv-nav-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: rgba(240, 234, 220, 0.25);
+  text-transform: uppercase;
+  min-width: 60px;
+  text-align: center;
 }
 
 /* ── Back link ── */
@@ -548,19 +619,32 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(240, 234, 220, 0.3);
+  color: rgba(240, 234, 220, 0.28);
   text-decoration: none;
   transition: color 0.22s ease;
 }
 
-.nf-back:hover { color: rgba(240, 234, 220, 0.75); }
+.nf-back:hover {
+  color: rgba(240, 234, 220, 0.7);
+}
 
 /* ── Responsive ── */
 
-@media (max-width: 420px) {
-  .tv-body { width: 300px; }
-  .tv-404 { font-size: 3.8rem; }
-  .tv-404--hollow { font-size: 4.2rem; }
-  .tv-404--minecraft { font-size: 2.2rem; }
-  .tv-404--stardew { font-size: 2rem; }
+@media (max-width: 580px) {
+  .tv-wrapper {
+    width: 90vw;
+  }
+
+  .tv-404 {
+    font-size: 3.5rem;
+  }
+
+  .tv-404--hollow {
+    font-size: 3.8rem;
+  }
+
+  .tv-404--minecraft,
+  .tv-404--stardew {
+    font-size: 2rem;
+  }
 }
