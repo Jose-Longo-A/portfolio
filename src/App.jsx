@@ -360,6 +360,18 @@ export default function App() {
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value })
 
   const [lang, setLangState] = useState(() => localStorage.getItem('lang') || 'pt')
+  const [loaderHiding, setLoaderHiding] = useState(false)
+  const [loaderDone, setLoaderDone] = useState(false)
+
+  useEffect(() => {
+    const img = new Image()
+    img.src = '/images/hero-bg.png'
+    const onLoad = () => {
+      setLoaderHiding(true)
+      setTimeout(() => setLoaderDone(true), 700)
+    }
+    if (img.complete) { onLoad() } else { img.onload = onLoad }
+  }, [])
   const tr = translations[lang]
 
   const setLang = (l) => {
@@ -564,6 +576,14 @@ export default function App() {
 
   return (
     <div className="portfolio">
+
+      {/* ── Page loader ── */}
+      {!loaderDone && (
+        <div className={`page-loader${loaderHiding ? ' page-loader--hide' : ''}`} aria-hidden="true">
+          <span className="page-loader-brand">J.L</span>
+          <div className="page-loader-bar" />
+        </div>
+      )}
 
       {/* ── Grain overlay ── */}
       <div className="grain-overlay" aria-hidden="true" />
