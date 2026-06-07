@@ -500,19 +500,20 @@
 .tv-power-btn {
   position: absolute;
   z-index: 3;
-  left: 84%;
-  top: 72%;
-  width: 8%;
-  height: 10%;
+  left: 87.4%;
+  top: 73.3%;
+  width: 3%;
+  height: 4.5%;
   border-radius: 50%;
   background: transparent;
+  /* TEMP — remover depois */
   border: none;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
 
 .tv-power-btn:hover {
-  background: radial-gradient(circle, rgba(255,200,0,0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 200, 0, 0.08) 0%, transparent 70%);
 }
 
 /* CRT power-off effect */
@@ -520,7 +521,8 @@
   position: absolute;
   inset: 0;
   z-index: 15;
-  background: #000; /* stays black after animation ends */
+  background: #000;
+  /* stays black after animation ends */
 }
 
 .tv-off-beam {
@@ -532,10 +534,25 @@
 }
 
 @keyframes crt-beam-off {
-  0%   { transform: scaleY(1)     scaleX(1);    opacity: 1; }
-  40%  { transform: scaleY(0.015) scaleX(1);    opacity: 1; }
-  70%  { transform: scaleY(0.015) scaleX(0.08); opacity: 0.8; }
-  100% { transform: scaleY(0.015) scaleX(0);    opacity: 0; }
+  0% {
+    transform: scaleY(1) scaleX(1);
+    opacity: 1;
+  }
+
+  40% {
+    transform: scaleY(0.015) scaleX(1);
+    opacity: 1;
+  }
+
+  70% {
+    transform: scaleY(0.015) scaleX(0.08);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scaleY(0.015) scaleX(0);
+    opacity: 0;
+  }
 }
 
 /* CRT power-on beam (reverse) */
@@ -549,11 +566,30 @@
 }
 
 @keyframes crt-beam-on {
-  0%   { transform: scaleY(0.015) scaleX(0.01); opacity: 1; }
-  30%  { transform: scaleY(0.015) scaleX(0.08); opacity: 1; }
-  60%  { transform: scaleY(0.015) scaleX(1);    opacity: 1; }
-  80%  { transform: scaleY(1)     scaleX(1);    opacity: 1; }
-  100% { transform: scaleY(1)     scaleX(1);    opacity: 0; }
+  0% {
+    transform: scaleY(0.015) scaleX(0.01);
+    opacity: 1;
+  }
+
+  30% {
+    transform: scaleY(0.015) scaleX(0.08);
+    opacity: 1;
+  }
+
+  60% {
+    transform: scaleY(0.015) scaleX(1);
+    opacity: 1;
+  }
+
+  80% {
+    transform: scaleY(1) scaleX(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(1) scaleX(1);
+    opacity: 0;
+  }
 }
 
 /* ── Invisible knob button (easter egg) ── */
@@ -561,10 +597,10 @@
 .tv-knob-btn {
   position: absolute;
   z-index: 3;
-  left: 76%;
-  top: 16%;
-  width: 8%;
-  height: 13%;
+  left: 75.9%;
+  top: 17.4%;
+  width: 10%;
+  height: 15%;
   border-radius: 50%;
   background: transparent;
   border: none;
@@ -573,7 +609,7 @@
 }
 
 .tv-knob-btn:hover {
-  background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
 }
 
 /* ── Channel navigation ── */
