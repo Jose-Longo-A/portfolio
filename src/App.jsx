@@ -60,6 +60,18 @@ const projects = [
     linkedin: null,
   },
   {
+    title: 'OBS Stem Organizer',
+    subtitle: 'EDITOR MULTIPISTA DESKTOP',
+    subtitleEn: 'Desktop Multi-track Editor',
+    img: '/images/obsstemorganizer.png',
+    tags: ['Python', 'pywebview', 'FFmpeg', 'Web Audio API', 'JavaScript', 'PyInstaller'],
+    description: 'Aplicativo desktop para Windows que automatiza a pós-produção de gravações multipista do OBS. Você arrasta o vídeo, define série e episódio, e o app remuxa o container, extrai cada faixa de áudio em arquivo separado e organiza tudo em pastas, sem reencode. Em seguida, abre um player multipista sincronizado por Web Audio API com mute, solo, volume e exportação MP3 por faixa, pra revisar o mix antes de levar ao editor.',
+    descriptionEn: 'A Windows desktop application that automates the post-production of multi-track OBS recordings. You drag and drop the video, specify the series and episode, and the app remuxes the container, extracts each audio track into a separate file, and organizes everything into folders—all without re-encoding. It then opens a multi-track player synchronized via the Web Audio API, featuring mute, solo, and volume controls, as well as per-track MP3 export, allowing you to review the mix before sending it to the editor..',
+    link: null,
+    github: 'https://github.com/Jose-Longo-A/obs-stem-organizer',
+    linkedin: 'https://www.linkedin.com/posts/jos%C3%A9-longo_opensource-python-ffmpeg-ugcPost-7474823580304977920-W_td/?highlightedUpdateUrn=urn%3Ali%3Aactivity%3A7474823581349187584&origin=SOCIAL_SHARE&utm_source=share&utm_medium=member_desktop&rcm=ACoAAEtYAZsB-3Ac80rK1vWv7eqlcpPodgjsdJw',
+  },
+  {
     title: 'Zincoligas',
     subtitle: 'AUTOMAÇÃO OCR',
     subtitleEn: 'OCR AUTOMATION',
